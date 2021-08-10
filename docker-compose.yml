@@ -3,7 +3,7 @@ version: '3.8'
 networks: 
   laravel:
     name: laravel
-    
+
 services: 
   nginx:
     build:
@@ -43,5 +43,39 @@ services:
       MYSQL_USER: laravel
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
+    networks: 
+      - laravel
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks: 
+      - laravel
+
+  artisan:
+    build: 
+      context: .
+      dockerfile: php.dockerfile
+    container_name: artisan
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['php', 'artisan']
+    networks: 
+      - laravel
+
+  npm:
+    image: node:14.2-alpine
+    container_name: npm
+    volumes: 
+      - ./src:/var/www/html
+    ports: 
+      - 3000:3000
+      - 3001:3001
+    working_dir: /var/www/html
+    entrypoint: ['npm']
     networks: 
       - laravel
