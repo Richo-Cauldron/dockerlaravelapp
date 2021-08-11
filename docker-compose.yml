@@ -79,3 +79,15 @@ services:
     entrypoint: ['npm']
     networks: 
       - laravel
+
+  phpunit:
+    build: 
+      context: .
+      dockerfile: php.dockerfile
+    container_name: phpunit
+    volumes: 
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['php', '/var/www/html/vendor/bin/phpunit']
+    networks: 
+      - laravel
