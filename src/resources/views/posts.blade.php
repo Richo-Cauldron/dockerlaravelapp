@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container mx-auto my-4">
+        <h4 class="text-lg">{{ $fromCache ? 'From Cache' : 'Not fromCache'}}</h4>
         <div class="grid grid-cols-3 gap-6">
             @foreach ($posts as $post)
                 <div class="post">

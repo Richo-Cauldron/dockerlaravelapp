@@ -9,10 +9,7 @@ Route::view('/', 'welcome')->name('home');
 
 //  ######## App Routes ############ //
 
-Route::get('/plp', function () {
-    
-    return view('posts', ['posts' => Post::all()]);
-});
+Route::get('/plp', [PostController::class, 'home']);
 
 Route::get('/posts', [PostController::class, 'index']);
 
