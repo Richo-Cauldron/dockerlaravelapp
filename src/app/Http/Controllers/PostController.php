@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GetFood;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -16,6 +17,13 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return $post;
+    }
+
+    public function get()
+    {
+        GetFood::dispatch()->onQueue('food');
+
+        return 'Added post to queue';
     }
 
     public function home()
